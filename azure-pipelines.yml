@@ -1,0 +1,71 @@
+# Starter pipeline
+# Add variable SonarqubeServiceConnectionName and PoolName in Pipeline variables
+
+name: $(Build.SourceBranchName).$(date:yyyyMMdd)$(rev:.r)
+
+trigger:
+  branches:
+    include:
+      - trunk
+      - feature/*
+
+resources:
+  - repo: self
+    clean: true
+
+queue:
+  name: $(PoolName)
+  demands:
+    - maven
+    - java
+
+steps:
+  - task: SonarQubePrepare@4
+    displayName: "Prepare analysis on SonarQube"
+    inputs:
+      SonarQube: $(SonarqubeServiceConnectionName)
+      scannerMode: CLI
+      configMode: manual
+      cliProjectKey: "$(Build.Repository.Name)"
+      cliProjectName: "$(Build.Repository.Name)"
+      cliProjectVersion: "$(Build.BuildNumber)"
+      extraProperties: |
+        sonar.sources=src/main/java
+        sonar.java.binaries=target/classes
+        sonar.tests=src/test/java
+        sonar.junit.reportPaths=target/surefire-reports
+        sonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+        sonar.java.test.binaries=target/test-classes
+
+  - task: Maven@3
+    displayName: "Build and Test"
+    inputs:
+      mavenPomFile: "pom.xml"
+      publishJUnitResults: true
+      testResultsFiles: "**/TEST-*.xml"
+      jdkArchitectureOption: "x64"
+      goals: "clean install package"
+      testRunTitle: "$(Build.Repository.Name)_$(Build.BuildNumber)"
+
+  - task: SonarQubeAnalyze@4
+    displayName: "Run Code Analysis"
+
+  - task: CopyFiles@2
+    displayName: "Copy Files"
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)'
+      Contents: |
+        target/*.jar
+        docker/*
+        Dockerfile
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+      CleanTargetFolder: true
+
+  - task: PublishBuildArtifacts@1
+    displayName: "Publish Artifact"
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/trunk'))
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'Artifact'
+      publishLocation: 'Container'
+      StoreAsTar: true
