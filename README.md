@@ -1,3 +1,4 @@
+[![Scorecards supply-chain security](https://github.com/bancolombia/hygieia-build-azure-devops-collector/actions/workflows/scorecards-analysis.yml/badge.svg)](https://github.com/bancolombia/hygieia-build-azure-devops-collector/actions/workflows/scorecards-analysis.yml)
 # Project Title
 
 Hygieia Azure DevOps Build Collector
