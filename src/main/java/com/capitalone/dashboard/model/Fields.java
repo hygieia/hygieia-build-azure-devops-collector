@@ -8,7 +8,7 @@ public class Fields {
 	private String systemWorkItemType;
 	private String systemState;
 	private String systemCreatedDate;
-	private String SystemTitle;
+	private String systemTitle;
 
 	public String getSystemAreaPath() {
 		return systemAreaPath;
@@ -59,11 +59,11 @@ public class Fields {
 	}
 
 	public String getSystemTitle() {
-		return SystemTitle;
+		return systemTitle;
 	}
 
 	public void setSystemTitle(String systemTitle) {
-		SystemTitle = systemTitle;
+		this.systemTitle = systemTitle;
 	}
 
 	

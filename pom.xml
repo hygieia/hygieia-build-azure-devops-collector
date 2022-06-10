@@ -51,6 +51,7 @@
 		<joda-convert.version>1.8.1</joda-convert.version>
 		<jacoco.version>0.7.6.201602180812</jacoco.version>
 		<docker.maven.version>1.2.2</docker.maven.version>
+		<jackson.version>2.9.7</jackson.version>
 	</properties>
 
 	<issueManagement>
@@ -121,14 +122,6 @@
 			<artifactId>joda-convert</artifactId>
 			<version>${joda-convert.version}</version>
 			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>

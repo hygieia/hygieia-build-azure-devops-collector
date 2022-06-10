@@ -15,5 +15,4 @@ COPY docker/properties-builder.sh /hygieia/
 
 RUN chmod +x /hygieia/properties-builder.sh
 
-CMD ./properties-builder.sh &&\
-  java -Djava.security.egd=file:/dev/./urandom -jar *.jar --spring.config.location=$PROP_FILE
+ENTRYPOINT ["sh","-c","./properties-builder.sh && java -Djava.security.egd=file:/dev/./urandom -jar *.jar --spring.config.location=$PROP_FILE"]
