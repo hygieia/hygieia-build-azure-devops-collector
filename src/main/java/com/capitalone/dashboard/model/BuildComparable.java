@@ -73,7 +73,7 @@ public class BuildComparable extends Build implements Comparable<BuildComparable
 			return true;
 		}
 
-		if (obj == null || getClass() != obj.getClass()) {
+		if (!(obj instanceof BuildComparable)) {
 			return false;
 		}
 

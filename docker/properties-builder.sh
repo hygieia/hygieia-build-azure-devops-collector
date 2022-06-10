@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cat > $PROP_FILE <<EOF
+cat > "$PROP_FILE" <<EOF
 #Database Name
 dbname=${HYGIEIA_DATABASE:-dashboarddb}
 
@@ -57,10 +57,10 @@ EOF
 echo "
 
 ===========================================
-Properties file created `date`:  $PROP_FILE
+Properties file created $(date):  $PROP_FILE
 Note: apiTokens and password are hidden
 ===========================================
-`cat $PROP_FILE | egrep -vi 'password|apiTokens'`
+$(cat $PROP_FILE | grep -Evi 'password|apiTokens')
 "
 
 exit 0

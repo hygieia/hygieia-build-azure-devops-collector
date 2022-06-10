@@ -23,7 +23,7 @@ public class VSTSBuildJob extends JobCollectorItem {
 			return true;
 		}
 
-		if (obj == null || getClass() != obj.getClass()) {
+		if (!(obj instanceof VSTSBuildJob)) {
 			return false;
 		}
 

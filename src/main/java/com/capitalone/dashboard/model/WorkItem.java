@@ -43,7 +43,7 @@ public class WorkItem {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof WorkItem))
 			return false;
 		WorkItem other = (WorkItem) obj;
 		if (idWorkItem == null) {
